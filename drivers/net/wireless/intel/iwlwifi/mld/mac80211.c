@@ -657,7 +657,7 @@ void iwl_mld_mac80211_stop(struct ieee80211_hw *hw, bool suspend)
 	/* if the suspend flow fails the fw is in error. Stop it here, and it
 	 * will be started upon wakeup
 	 */
-	if (!suspend || iwl_mld_no_wowlan_suspend(mld))
+	if (!suspend || (IS_ENABLED(CONFIG_PM_SLEEP) && iwl_mld_no_wowlan_suspend(mld)))
 		iwl_mld_stop_fw(mld);
 
 	/* Clear in_hw_restart flag when stopping the hw, as mac80211 won't
